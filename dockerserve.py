@@ -4,6 +4,9 @@ import subprocess
 import sys
 
 
+DEFAULT_PORT = "8080"
+
+
 def main():
     if len(sys.argv) == 1:
         print_help()
@@ -19,12 +22,11 @@ def main():
 
 
 def start():
-    if len(sys.argv) < 3:
-        print_help()
-        return
+    port = DEFAULT_PORT
+    if len(sys.argv) >= 3:
+        port = sys.argv[2]
     container_name = _get_container_name()
     pwd = subprocess.check_output(["pwd"]).decode("utf-8").strip()
-    port = sys.argv[2]
     subprocess.run(["docker", "container", "run", "--rm", "-d", "--name", container_name, "-p", (port + ":80"),
                     "-v", (pwd + "://usr/share/nginx/html:ro"), "nginx:1.17"])
 
