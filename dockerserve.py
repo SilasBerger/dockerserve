@@ -16,6 +16,8 @@ def main():
         start()
     elif command == "stop":
         stop()
+    elif command == "status":
+        status()
     else:
         print_help()
     return 0
@@ -34,6 +36,16 @@ def start():
 def stop():
     container_name = _get_container_name()
     subprocess.run(["docker", "container", "stop", container_name])
+
+
+def status():
+    container_name = _get_container_name()
+    containers = subprocess.check_output(["docker", "container", "ls"]).decode("utf-8").split("\n")
+    for line in containers:
+        if container_name in line:
+            print("running (" + container_name + ")\n")
+            return
+    print("not running\n")
 
 
 def _get_container_name():
