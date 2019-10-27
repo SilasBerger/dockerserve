@@ -1,12 +1,7 @@
 #! /usr/bin/python3
 
 import subprocess
-import os
 import sys
-import re
-
-
-container_name_pattern = re.compile("[a-zA-Z0-9][a-zA-Z0-9_.-]*")
 
 
 def main():
