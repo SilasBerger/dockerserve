@@ -2,6 +2,7 @@
 
 import subprocess
 import sys
+import re
 
 
 DEFAULT_PORT = "8080"
@@ -16,6 +17,8 @@ def main():
         start()
     elif command == "stop":
         stop()
+    elif command == "status":
+        status()
     else:
         print_help()
     return 0
@@ -34,6 +37,18 @@ def start():
 def stop():
     container_name = _get_container_name()
     subprocess.run(["docker", "container", "stop", container_name])
+
+
+def status():
+    container_name = _get_container_name()
+    containers = subprocess.check_output(["docker", "container", "ls"]).decode("utf-8").strip().split("\n")
+    for line in containers:
+        if container_name in line:
+            ports_pattern = re.compile("\\d+\\.\\d+\\.\\d+\\.\\d+:(\\d+)->80/tcp")
+            port = re.search(ports_pattern, line).group(1)
+            print("running (port=" + port + ", container=" + container_name + ")\n")
+            return
+    print("not running\n")
 
 
 def _get_container_name():
