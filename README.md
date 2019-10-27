@@ -14,8 +14,9 @@ _Note: we assume that you have added an alias called `dockerserve` for `/path/to
 
 To use Dockerserve, `cd` into the directory you want to serve as a web root.
 - `dockerserve`: print the help
-- `dockerserve start <port>`: serve this directory as a web root (make sure that no other container or service is currently using `port`, otherwise, Docker won't be able to start the container)
+- `dockerserve start [port]`: serve this directory as a web root (make sure that no other container or service is currently using `port`, otherwise, Docker won't be able to start the container). If no port is specified, port 8080 will be used by default.
 - `dockerserve stop`: stop serving this directory
+- `dockerserve status`: check whether this directory is currently being served
 
 ## Limitations
 Dockerserve does not inject any code into your source files and thus, does not support automatic live reloading on file changes.

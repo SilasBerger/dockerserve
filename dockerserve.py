@@ -61,10 +61,10 @@ def _get_container_name():
 
 def print_help():
     print("Serve the present working directory in an Nginx Docker container.\n")
-    print("Usage:")
-    print("\tdockerserve start <port>: serve this directory")
-    print("\tdockerserve stop: stop serving this directory")
-    print("\tdockerserve: print this help")
+    print("Commands:")
+    print("  start [port]\tserve this directory on the specified port, or default port 8080")
+    print("  stop\t\tstop serving this directory")
+    print("  status\tcheck whether this directory is currently being served")
     print("")
 
 
